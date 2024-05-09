@@ -1,11 +1,11 @@
 // Core
 import React, { FC } from 'react';
-import { ErrorBoundary } from '../../Components/ErrorBoundary';
 
+import { ErrorBoundary } from '../../Components/ErrorBoundary';
 
 const Root: FC = () => {
     return (
-        <h1>Home page</h1>
+            <h1>Auth Page</h1>
     );
 };
 
