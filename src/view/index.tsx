@@ -1,19 +1,17 @@
+import { FC } from 'react';
+import Leftbar from './Components/Leftbar';
 import './index.css';
 
 import { Routes } from './routes';
 
 function App() {
-  // return (
-    // <ThemeProvider theme = { defaultTheme }>
-    //         <GlobalStyles />
-    //         <AppContainer>
-    //             <Routes />
-    //         </AppContainer>
-    //     </ThemeProvider>
-  // );
 
   return (
-    <Routes />
+    <>
+      <Leftbar>
+        <Routes />
+      </Leftbar>
+    </>
   )
 }
 
