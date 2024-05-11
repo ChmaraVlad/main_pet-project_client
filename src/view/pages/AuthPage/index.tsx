@@ -1,22 +1,20 @@
 // Core
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { ErrorBoundary } from '../../components/ErrorBoundary';
-import { useLoginMutation } from '../../../services/authApi';
+
+import AuthForm from '../../components/AuthForm/'
+
+
+import {AuthPageWrapper} from './styles'
 
 const Root: FC = () => {
-    const [login, data] = useLoginMutation()
-    const {isLoading, isError} = data
-    
-    useEffect(()=>{
-        login({email: 'john@email.com', password: 'password'})
-    },[])
-
-    if(isLoading) return <h1>Loading...</h1>
-    if(isError) return <h1>Error...</h1>
 
     return (
+        <AuthPageWrapper>
             <h1>Auth Page</h1>
+            <AuthForm />
+        </AuthPageWrapper>
     );
 };
 
