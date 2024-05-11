@@ -7,14 +7,22 @@ import {
   ItemName,
 } from "../styles";
 
-import leftbarData from "../../../../data/privateRoutes";
+import leftbarData from "../../../../data/leftbarItems";
 
 const LeftbarItems: FC<{displaySidebar?: boolean}> = ({ displaySidebar }) => {
   const [activeItem, setActiveItem] = useState(0);
 
+    const isLoggedIn = false;
+
   return (
     <ItemsList>
-      {leftbarData.map((itemData, index) => (
+      {leftbarData.map((itemData, index) => {
+        
+        if(itemData.isProtected && !isLoggedIn) {
+          return null
+        }
+        
+        return (
         <ItemContainer
           key={index}
           onClick={() => setActiveItem(itemData.id)}
@@ -29,7 +37,7 @@ const LeftbarItems: FC<{displaySidebar?: boolean}> = ({ displaySidebar }) => {
             </ItemWrapper>
           </Link>
         </ItemContainer>
-      ))}
+      )})}
     </ItemsList>
   );
 };

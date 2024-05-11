@@ -1,6 +1,6 @@
 // Core
 import React, { FC } from 'react';
-import { ErrorBoundary } from '../../Components/ErrorBoundary';
+import { ErrorBoundary } from '../../components/ErrorBoundary';
 
 
 const Root: FC = () => {
