@@ -1,7 +1,7 @@
 // Core
 import React, { FC, useEffect } from 'react';
 
-import { ErrorBoundary } from '../../Components/ErrorBoundary';
+import { ErrorBoundary } from '../../components/ErrorBoundary';
 import { useLoginMutation } from '../../../services/authApi';
 
 const Root: FC = () => {
