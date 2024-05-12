@@ -1,12 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials, logOut } from '../../store/slices/authSlice'
+import Cookies from 'js-cookie';
+
+import { setCredentials, logOut, User } from '../../store/slices/authSlice'
+
 import { RootState } from '../../store';
+
+interface ApiResponse {
+    accessToken: string;
+    user: User;
+}
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:5000/v1/auth',
     prepareHeaders: (headers, { getState }) => {
         const state = getState() as RootState;
-        const token = state.auth.accessToken
+        const tokenFromStore = state.auth.accessToken
+        const tokenFromCookies = Cookies.get('token');
+        const token = tokenFromStore || tokenFromCookies
         if (token) {
             headers.set("authorization", `Bearer ${token}`)
         }
@@ -20,6 +30,9 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
     if(result?.data) {
         console.log('saving user and accessToken after success request')
         api.dispatch(setCredentials({ ...result?.data }))
+        const dataResponse = { ...result?.data }
+        const token = (dataResponse as ApiResponse).accessToken
+        Cookies.set('token', token, { expires: 7, secure: true });
     }
 
     // if (result?.error?.originalStatus === 403) {
