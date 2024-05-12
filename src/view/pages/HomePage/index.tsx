@@ -1,20 +1,27 @@
 // Core
 import React, { FC } from 'react';
+import styled from 'styled-components'
 
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 
 
-import useSelectorCustom from '../../../hooks/useSelectorCustom'
-// import { selectCurrentUser } from '../../../store/slices/authSlice';
+
+
+const HomePageWrapper = styled.div.attrs({
+className: 'AuthPageWrapper'
+})`
+    text-align: center;
+`;
+
 
 
 
 const Root: FC = () => {
-    const state = useSelectorCustom((state) => state)
-    // const currentUser = selectCurrentUser()
     
     return (
-        <h1>Home page</h1>
+        <HomePageWrapper>
+            <h1>Home page</h1>
+        </HomePageWrapper>
     );
 };
 
