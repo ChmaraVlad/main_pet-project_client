@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import {AuthFormContent, AuthFormWrapper, AuthInput, AuthLabel, AuthSpan, AuthSpanErrors, ButtonSubmit, ResultFromResponse} from './styles'
 import { useLoginMutation } from "../../../store/slices/authApiSlice"
 import { PostResponseFromRTK } from "../../../types"
+import useSelectorCustom from "../../../hooks/useSelectorCustom"
 
 
 type Inputs = {
@@ -20,12 +21,22 @@ const AuthForm: FC = () => {
     formState: { errors },
   } = form
 
+  const user = useSelectorCustom(({auth}) => auth.user)
   const [login, loginDataFomRequest] = useLoginMutation()
   const {isLoading, isError, error: onErrorPostLogin, isSuccess} = loginDataFomRequest
   
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     login({email: data.email, password: data.password})
     // user hardcoded in DB ({email: 'john@email.com', password: 'password'})
+  }
+
+  if(user) {
+    return (
+      <>
+        Welcome {user?.username}
+        <p>You are signed in already</p>
+      </>
+    )
   }
     
   return (
@@ -62,7 +73,7 @@ const AuthForm: FC = () => {
               {...register("password", { required: true })} />
             {errors.password && <AuthSpanErrors>This field is required</AuthSpanErrors>}
           </AuthLabel>
-          <ButtonSubmit type="submit" />
+          <ButtonSubmit type="submit" value='Sign In' />
         </form>
         {isLoading ? <ResultFromResponse $colorText='blue'>Loading...</ResultFromResponse> : null}
         {isError ? (
