@@ -1,5 +1,5 @@
-import React, { FC, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   ItemsList,
   ItemContainer,
@@ -8,25 +8,23 @@ import {
 } from "../styles";
 
 import leftbarData from "../../../../data/leftbarItems";
+import useSelectorCustom from "../../../../hooks/useSelectorCustom";
 
 const LeftbarItems: FC<{displaySidebar?: boolean}> = ({ displaySidebar }) => {
-  const [activeItem, setActiveItem] = useState(0);
+  let location = useLocation();
 
-    const isLoggedIn = false;
+    const isLoggedIn = useSelectorCustom(({auth}) => auth.user);
 
   return (
     <ItemsList>
       {leftbarData.map((itemData, index) => {
-        
         if(itemData.isProtected && !isLoggedIn) {
           return null
         }
-        
         return (
         <ItemContainer
           key={index}
-          onClick={() => setActiveItem(itemData.id)}
-          className={itemData.id === activeItem ? "active" : ""}
+          className={itemData.path === location?.pathname ? "active" : ""}
         >
           <Link to={itemData.path}>
             <ItemWrapper>
