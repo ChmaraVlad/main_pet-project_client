@@ -2,7 +2,7 @@ import { FC } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import {AuthFormContent, AuthFormWrapper, AuthInput, AuthLabel, AuthSpan, AuthSpanErrors, ButtonSubmit, ResultFromResponse} from './styles'
-import { useLoginMutation } from "../../../services/authApi"
+import { useLoginMutation } from "../../../store/slices/authApiSlice"
 import { PostResponseFromRTK } from "../../../types"
 
 
@@ -37,7 +37,7 @@ const AuthForm: FC = () => {
             <AuthInput
               $error={errors.email ? true : undefined}
               type="email"
-              defaultValue="email@example.com" 
+              defaultValue="john@email.com" 
               {...register("email", { 
                 required: true,
                 // validate: {
@@ -57,6 +57,7 @@ const AuthForm: FC = () => {
             </AuthSpan>
             <AuthInput
               $error={errors.password ? true : undefined}
+              defaultValue="password" 
               type="password"
               {...register("password", { required: true })} />
             {errors.password && <AuthSpanErrors>This field is required</AuthSpanErrors>}
@@ -67,7 +68,7 @@ const AuthForm: FC = () => {
         {isError ? (
           <ResultFromResponse $colorText='red'>
             {('status' in (onErrorPostLogin || {}))
-          && (onErrorPostLogin as PostResponseFromRTK).data.message}
+          && (onErrorPostLogin as PostResponseFromRTK).data?.message}
           </ResultFromResponse>
         ) : null}
         {isSuccess ? (
