@@ -1,14 +1,19 @@
 import { authApi } from "../../services/authApi";
-import { logOut } from "./authSlice";
+import { User, logOut } from "./authSlice";
 
 type Credentials = {
 	email: string;
 	password: string;
 };
 
+interface ApiResponse {
+    accessToken: string;
+    user: User;
+}
+
 export const authApiSlice = authApi.injectEndpoints({
   endpoints: builder => ({
-      login: builder.mutation({
+      login: builder.mutation<ApiResponse, Credentials>({
         query: (credentials: Credentials) => ({
           url: 'login',
           method: 'POST',
