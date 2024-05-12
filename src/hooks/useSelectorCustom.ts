@@ -7,6 +7,6 @@ import {
 // Types
 import { RootState } from '../store';
 
-export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+export const useSelectorCustom: TypedUseSelectorHook<RootState> = useReduxSelector;
 
-export default useSelector
+export default useSelectorCustom
