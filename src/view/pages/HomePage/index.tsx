@@ -5,16 +5,11 @@ import styled from 'styled-components'
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 
 
-
-
 const HomePageWrapper = styled.div.attrs({
 className: 'AuthPageWrapper'
 })`
     text-align: center;
 `;
-
-
-
 
 const Root: FC = () => {
     

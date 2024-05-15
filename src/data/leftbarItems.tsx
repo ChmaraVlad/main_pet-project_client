@@ -10,7 +10,6 @@ export const SIDEBAR_DATA = [
     path: "/account",
     icon: <UserIcon />,
     component: <AccountPage />,
-    isProtected: true,
   },
   {
     id: 2,
@@ -18,7 +17,6 @@ export const SIDEBAR_DATA = [
     path: "/",
     icon: <PagesIcon />,
     component: <HomePage />,
-    isProtected: false,
   },
   {
     id: 3,
@@ -26,7 +24,6 @@ export const SIDEBAR_DATA = [
     path: "/authentication",
     icon: <AuthIcon />,
     component: <AuthPage />,
-    isProtected: false,
   },
 ];
 
