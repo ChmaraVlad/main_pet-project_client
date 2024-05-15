@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { setCredentials } from '../../store/slices/auth/authSlice'
+import { logOut } from '../../store/slices/user/userSlice';
 
 
 
@@ -15,25 +16,25 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
     let result = await baseQuery(args, api, extraOptions)
 
     if(result?.data) {
-        console.log('saving user and accessToken after success request')
         api.dispatch(setCredentials({ ...result?.data }))
     }
 
-    // if (result?.error?.originalStatus === 403) {
-    //     console.log('sending refresh token')
-    //     // send refresh token to get new access token 
-    //     const refreshResult = await baseQuery('/refresh', api, extraOptions)
-    //     console.log(refreshResult)
-    //     if (refreshResult?.data) {
-    //         const user = api.getState().auth.user
-    //         // store the new token 
-    //         api.dispatch(setCredentials({ ...refreshResult.data, user }))
-    //         // retry the original query with new access token 
-    //         result = await baseQuery(args, api, extraOptions)
-    //     } else {
-    //         api.dispatch(logOut())
-    //     }
-    // }
+    if (result?.error?.status === 401) {
+        const refreshResult = await baseQuery('/v1/auth/refresh', api, extraOptions)
+        console.log(refreshResult)
+        if (refreshResult?.data) {
+            // const user = api.getState().auth.user
+            // store the new token 
+            // api.dispatch(setCredentials({ ...refreshResult.data, user }))
+            // retry the original query with new access token 
+            result = await baseQuery(args, api, extraOptions)
+            if(result.data) api.dispatch(setCredentials({ ...result?.data }))
+            console.log("🚀 ~ baseQueryWithReauth ~ result:", result)
+        } else {
+            const auth = api.getState().auth
+            api.dispatch(logOut(auth))
+        }
+    }
 
     return result
 }
