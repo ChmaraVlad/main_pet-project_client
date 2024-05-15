@@ -2,7 +2,7 @@ import { FC } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import {AuthFormContent, AuthFormWrapper, AuthInput, AuthLabel, AuthSpan, AuthSpanErrors, ButtonSubmit, ResultFromResponse} from './styles'
-import { useLoginMutation } from "../../../store/slices/authApiSlice"
+import { useLoginMutation } from "../../../store/slices/auth/authApiSlice"
 import { PostResponseFromRTK } from "../../../types"
 import useSelectorCustom from "../../../hooks/useSelectorCustom"
 

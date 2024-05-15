@@ -8,20 +8,13 @@ import {
 } from "../styles";
 
 import leftbarData from "../../../../data/leftbarItems";
-import useSelectorCustom from "../../../../hooks/useSelectorCustom";
 
 const LeftbarItems: FC<{displaySidebar?: boolean}> = ({ displaySidebar }) => {
   let location = useLocation();
 
-    const isLoggedIn = useSelectorCustom(({auth}) => auth.user);
-
   return (
     <ItemsList>
-      {leftbarData.map((itemData, index) => {
-        if(itemData.isProtected && !isLoggedIn) {
-          return null
-        }
-        return (
+      {leftbarData.map((itemData, index) => (
         <ItemContainer
           key={index}
           className={itemData.path === location?.pathname ? "active" : ""}
@@ -35,7 +28,7 @@ const LeftbarItems: FC<{displaySidebar?: boolean}> = ({ displaySidebar }) => {
             </ItemWrapper>
           </Link>
         </ItemContainer>
-      )})}
+      ))}
     </ItemsList>
   );
 };
