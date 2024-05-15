@@ -1,25 +1,44 @@
 // Core
 import React, { FC, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Routes
-import { Public } from './Public';
-import { Private } from './Private';
+import PrivateRoute from './PrivateRoute';
 
-import useSelectorCustom from '../../hooks/useSelectorCustom';
+// pages
+import AuthPage from '../pages/AuthPage';
+import AccountPage from '../pages/AccountPage';
 
-// Bus
 
-export const Routes: FC<{}> = () => {
-  const isLoggedIn = useSelectorCustom(({auth}) => auth.user)
+// Tools
+import * as book from './book';
 
-      return (
-        <Suspense fallback={ <div>Spinner</div> }>
-            {
-              isLoggedIn
-                  ? <Private />
-                  : <Public />
-            }
-        </Suspense>
+export const MainRoutes: FC = () => {
+
+    return (
+      <Suspense fallback={ <div>Spinner</div> }>
+        <Routes>
+          <Route
+              element = { <AuthPage/> }
+              path =  { book.AUTHENTICATION_PAGE }
+          /> 
+            <Route element={<PrivateRoute />}>
+              <Route
+                    element = { <AccountPage /> }
+                    path = { book.ACCOUNT_PAGE }
+                />
+            </Route>
+          <Route
+              element = {
+                  <Navigate
+                      replace
+                      to = { book.ACCOUNT_PAGE }
+                  />
+              }
+              path = '*'
+          /> 
+        </Routes>
+      </Suspense>
     );
   
 }

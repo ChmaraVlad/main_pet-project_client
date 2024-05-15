@@ -2,16 +2,14 @@ import { FC } from 'react';
 import Leftbar from './components/Leftbar';
 import './index.css';
 
-import { Routes } from './routes';
+import { MainRoutes } from './routes';
 
 function App() {
 
   return (
-    <>
       <Leftbar>
-        <Routes />
+        <MainRoutes />
       </Leftbar>
-    </>
   )
 }
 
