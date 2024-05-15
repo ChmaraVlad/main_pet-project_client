@@ -1,4 +1,4 @@
-import { authApi } from "../../../services/authApi";
+import { authApi } from "../../../services/api";
 import { User } from "./authSlice";
 
 type Credentials = {
