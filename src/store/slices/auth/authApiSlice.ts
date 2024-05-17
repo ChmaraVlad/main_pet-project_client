@@ -22,10 +22,14 @@ export const authApiSlice = authApi.injectEndpoints({
       getUser: builder.query({
         query: () => '/users/info'
       }),
+      getUserAdminData: builder.query({
+        query: () => '/users/admin'
+      }),
   })
 })
 
 export const {
     useLoginMutation,
-    useGetUserQuery
+    useGetUserQuery,
+    useGetUserAdminDataQuery
 } = authApiSlice
