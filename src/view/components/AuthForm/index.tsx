@@ -1,10 +1,11 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import {AuthFormContent, AuthFormWrapper, AuthInput, AuthLabel, AuthSpan, AuthSpanErrors, ButtonSubmit, ResultFromResponse} from './styles'
 import { useLoginMutation } from "../../../store/slices/auth/authApiSlice"
 import { PostResponseFromRTK } from "../../../types"
 import useSelectorCustom from "../../../hooks/useSelectorCustom"
+import { useNavigate } from "react-router-dom"
 
 
 type Inputs = {
@@ -21,6 +22,8 @@ const AuthForm: FC = () => {
     formState: { errors },
   } = form
 
+  const navigate = useNavigate();
+  
   const user = useSelectorCustom(({auth}) => auth.user)
   const [login, loginDataFomRequest] = useLoginMutation()
   const {isLoading, isError, error: onErrorPostLogin, isSuccess} = loginDataFomRequest
@@ -29,6 +32,19 @@ const AuthForm: FC = () => {
     login({email: data.email, password: data.password})
     // user hardcoded in DB ({email: 'john@email.com', password: 'password'})
   }
+  
+  useEffect(()=>{
+    let timeout: ReturnType<typeof setTimeout>
+    if(isSuccess) {
+      timeout = setTimeout(()=>{
+        navigate('/account');
+      }, 1000)
+    }
+
+    return ()=>{
+      if(timeout) clearTimeout(timeout)
+    }
+  }, [isSuccess, navigate])
 
   if(user) {
     return (
@@ -83,9 +99,14 @@ const AuthForm: FC = () => {
           </ResultFromResponse>
         ) : null}
         {isSuccess ? (
-          <ResultFromResponse $colorText='green'>
-            Success
-          </ResultFromResponse>
+          <>
+            <ResultFromResponse $colorText='green'>
+              Success
+            </ResultFromResponse>
+            <ResultFromResponse $colorText='blue'>
+              You will be redirected to Account Page
+            </ResultFromResponse>
+          </>
         ) : null}
       </AuthFormContent>
     </AuthFormWrapper>
