@@ -4,11 +4,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Routes
 import PrivateRoute from './PrivateRoute';
+import PrivateAdminRoute from './PrivateAdminRoute';
 
 // pages
 import AuthPage from '../pages/AuthPage';
 import AccountPage from '../pages/AccountPage';
 import HomePage from '../pages/HomePage';
+import AdminPage from '../pages/AdminPage';
 
 
 // Tools
@@ -27,6 +29,12 @@ export const MainRoutes: FC = () => {
             <Route
                   element = { <AccountPage /> }
                   path = { book.ACCOUNT_PAGE }
+              />
+          </Route>
+          <Route element={<PrivateAdminRoute />}>
+            <Route
+                  element = { <AdminPage /> }
+                  path = { book.ADMIN_PAGE }
               />
           </Route>
           <Route

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useGetUserQuery } from '../../store/slices/auth/authApiSlice';
+import { useGetUserAdminDataQuery } from '../../store/slices/auth/authApiSlice';
 
-const PrivateRoute = ({ redirectPath = '/authentication' }) => {
-    const {isSuccess, isLoading} = useGetUserQuery('')
+const PrivateAdminRoute = ({ redirectPath = '/' }) => {
+    const {isSuccess, isLoading} = useGetUserAdminDataQuery('')
 
     if (isLoading) {
         return <h1>Loading...</h1>
@@ -12,8 +12,8 @@ const PrivateRoute = ({ redirectPath = '/authentication' }) => {
     if (!isSuccess) {
         return <Navigate to={redirectPath} replace />;
     }
-    
+
     return <Outlet />;
 };
 
-export default PrivateRoute;
+export default PrivateAdminRoute;
