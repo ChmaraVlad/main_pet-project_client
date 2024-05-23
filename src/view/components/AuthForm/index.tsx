@@ -2,10 +2,10 @@ import { FC, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import {AuthFormContent, AuthFormWrapper, AuthInput, AuthLabel, AuthSpan, AuthSpanErrors, ButtonSubmit, ResultFromResponse} from './styles'
-import { useLoginMutation } from "../../../store/slices/auth/authApiSlice"
 import { PostResponseFromRTK } from "../../../types"
 import useSelectorCustom from "../../../hooks/useSelectorCustom"
 import { useNavigate } from "react-router-dom"
+import { useLoginMutation } from "../../../services/authApi"
 
 
 type Inputs = {
