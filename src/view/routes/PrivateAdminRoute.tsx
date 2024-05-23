@@ -1,6 +1,8 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useGetUserAdminDataQuery } from '../../store/slices/auth/authApiSlice';
+
+// services
+import { useGetUserAdminDataQuery } from '../../services/userApi';
 
 const PrivateAdminRoute = ({ redirectPath = '/' }) => {
     const {isSuccess, isLoading} = useGetUserAdminDataQuery('')

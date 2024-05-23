@@ -11,6 +11,7 @@ import AuthPage from '../pages/AuthPage';
 import AccountPage from '../pages/AccountPage';
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
+import ProductsPage from '../pages/ProductsPage';
 
 
 // Tools
@@ -25,6 +26,10 @@ export const MainRoutes: FC = () => {
               element = { <AuthPage/> }
               path =  { book.AUTHENTICATION_PAGE }
           /> 
+          <Route
+                element = { <ProductsPage /> }
+                path = { book.PRODUCTS_PAGE }
+            />
           <Route element={<PrivateRoute />}>
             <Route
                   element = { <AccountPage /> }

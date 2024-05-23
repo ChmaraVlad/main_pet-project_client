@@ -8,7 +8,9 @@ function App() {
 
   return (
       <Leftbar>
-        <MainRoutes />
+        <div className='main-routes-wrapper'>
+          <MainRoutes />
+        </div>
       </Leftbar>
   )
 }

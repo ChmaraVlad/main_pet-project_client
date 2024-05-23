@@ -1,6 +1,8 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useGetUserQuery } from '../../store/slices/auth/authApiSlice';
+
+// services
+import { useGetUserQuery } from '../../services/userApi';
 
 const PrivateRoute = ({ redirectPath = '/authentication' }) => {
     const {isSuccess, isLoading} = useGetUserQuery('')
