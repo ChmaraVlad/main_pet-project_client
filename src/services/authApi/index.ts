@@ -1,5 +1,5 @@
-import { authApi } from "../../../services/api";
-import { User } from "./authSlice";
+import { User } from "../../store/slices/auth/authSlice";
+import { baseApi } from "../baseApi";
 
 type Credentials = {
 	email: string;
@@ -10,7 +10,7 @@ interface ApiResponse {
     user: User;
 }
 
-export const authApiSlice = authApi.injectEndpoints({
+export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
       login: builder.mutation<ApiResponse, Credentials>({
         query: (credentials: Credentials) => ({
@@ -19,17 +19,9 @@ export const authApiSlice = authApi.injectEndpoints({
           body: { ...credentials }
         })
       }),
-      getUser: builder.query({
-        query: () => '/users/info'
-      }),
-      getUserAdminData: builder.query({
-        query: () => '/users/admin'
-      }),
   })
 })
 
 export const {
     useLoginMutation,
-    useGetUserQuery,
-    useGetUserAdminDataQuery
-} = authApiSlice
+} = authApi
