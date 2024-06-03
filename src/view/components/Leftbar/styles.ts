@@ -81,11 +81,12 @@ export const SidebarContainer = styled.div<{$displaySidebar?: boolean}>`
   left: 0;
   width: ${({ $displaySidebar }) => ($displaySidebar ? "15rem" : "5rem")};
   height: 100vh;
-  padding: 0.75rem;
+  padding: 4rem 0.75rem 0.75rem;
   background: #f3f4f4;
   transition: width 350ms ease;
   border-right: 1px solid #d4d8dd;
   overflow-x: hidden;
+  z-index: 1;
   ${({ $displaySidebar }) =>
     $displaySidebar && "box-shadow: 8px 0px 12px 0px rgba(0,0,0,0.1)"};
   ${ItemWrapper} {

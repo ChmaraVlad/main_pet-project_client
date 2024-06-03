@@ -1,9 +1,15 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const AuthFormWrapper = styled.div.attrs({
   className: 'AuthFormWrapper',
-})`
-  font-size: 20px;
+})<{$authModal?: boolean}>`
+    font-size: 20px;
+    ${props => props.$authModal && css`
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `}
   `;
 export const AuthFormContent = styled.div.attrs({
   className: 'AuthFormContent',

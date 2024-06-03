@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+export enum UserRoles {
+    user = 'user',
+    admin = 'admin'
+}
+
 export type User = {
     email: string
     username: string
+    id: number
+    roles: UserRoles[]
 }
 
 type InitState = {user: User | null, accessToken: string | null}
@@ -17,7 +24,7 @@ const authSlice = createSlice({
             const { user }: {user: User} = action.payload
             state.user = user
         },
-        logOut: (state, action) => {
+        logOut: (state) => {
             state.user = null
             state.accessToken = null
         }
