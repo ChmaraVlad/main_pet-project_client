@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 
 import {AuthFormContent, AuthFormWrapper, AuthInput, AuthLabel, AuthSpan, AuthSpanErrors, ButtonSubmit, ResultFromResponse} from './styles'
 import { PostResponseFromRTK } from "../../../types"
-import useSelectorCustom from "../../../hooks/useSelectorCustom"
+import useAppSelector from "../../../hooks/useSelectorCustom"
 import { useNavigate } from "react-router-dom"
 import { useLoginMutation } from "../../../services/authApi"
 
@@ -14,7 +14,7 @@ type Inputs = {
 }
 
 
-const AuthForm: FC = () => {
+const AuthForm: FC<{authModal?: boolean}> = ({authModal}) => {
   const form = useForm<Inputs>()
   const {
     register,
@@ -24,7 +24,7 @@ const AuthForm: FC = () => {
 
   const navigate = useNavigate();
   
-  const user = useSelectorCustom(({auth}) => auth.user)
+  const user = useAppSelector(({auth}) => auth.user)
   const [login, loginDataFomRequest] = useLoginMutation()
   const {isLoading, isError, error: onErrorPostLogin, isSuccess} = loginDataFomRequest
   
@@ -35,7 +35,7 @@ const AuthForm: FC = () => {
   
   useEffect(()=>{
     let timeout: ReturnType<typeof setTimeout>
-    if(isSuccess) {
+    if(isSuccess && !authModal) {
       timeout = setTimeout(()=>{
         navigate('/account');
       }, 1000)
@@ -44,7 +44,7 @@ const AuthForm: FC = () => {
     return ()=>{
       if(timeout) clearTimeout(timeout)
     }
-  }, [isSuccess, navigate])
+  }, [isSuccess, navigate, authModal])
 
   if(user) {
     return (
@@ -56,7 +56,7 @@ const AuthForm: FC = () => {
   }
     
   return (
-    <AuthFormWrapper>
+    <AuthFormWrapper $authModal={authModal}>
       <AuthFormContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <AuthLabel>
@@ -67,10 +67,6 @@ const AuthForm: FC = () => {
               defaultValue="john@email.com" 
               {...register("email", { 
                 required: true,
-                // validate: {
-                //   isEmail: (value) =>
-                //     validator.isEmail(value) || "Not a valid email 📧",
-                // },
                 pattern: {
                   value: /\S+@\S+\.\S+/,
                   message: "Entered value does not match email format",
