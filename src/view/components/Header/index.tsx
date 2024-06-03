@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { ErrorBoundary } from "../ErrorBoundary"
-import UserInfo from "./UserInfo"
+import RightSide from "./RightSide"
 
 const StHeader = styled.header.attrs({
   className: 'header'
@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <StHeader>
       <span className="header__logo">Logo</span>  
-      <UserInfo />
+      <RightSide />
     </StHeader>
   )
 }
