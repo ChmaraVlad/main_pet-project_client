@@ -1,32 +1,32 @@
+import { useCallback, useState } from "react"
 import useAppSelector from "../../../../hooks/useSelectorCustom"
-import { useGetUserQuery } from "../../../../services/userApi"
-import { ErrorBoundary } from "../../ErrorBoundary"
-import LoginButton from "../LoginButton"
+import { useOutsideClick } from "../../../../hooks/useOutsideClick"
+import UserDropdownMenu from "../UserDropdownMenu"
+import { SUserInfo } from "./styles"
 
 const UserInfo = () => {
-   const {isLoading} = useGetUserQuery('')
+  const user = useAppSelector(({auth})=> auth.user)
+  console.log("🚀 ~ UserInfo ~ user:", user)
 
-   const user = useAppSelector(({auth})=> auth.user)
+  const [showModal, setShowModal] = useState(false)
 
-   if(isLoading) return (
-    <span>Loading...</span>
-   )
+  const handleOutsideClick = useCallback(() => {
+    if(showModal) setShowModal(false)
+  }, [showModal])
+
+  const dropdownRef = useOutsideClick(handleOutsideClick)
+
+  if(!user) return null
 
   return (
-    <div>
-      {user ? (
-        <div>
-          <span>{user.email}</span>
-        </div>
-        ) : (
-        <LoginButton />
-      )}
-    </div>
+    <SUserInfo>
+      <span onClick={()=> setShowModal(true)}>{user.email}</span>
+      <UserDropdownMenu 
+        user={user} 
+        showModal={showModal} 
+        ref={dropdownRef} />
+    </SUserInfo>
   )
 }
 
-export default () => (
-  <ErrorBoundary>
-    <UserInfo />
-  </ErrorBoundary>
-)
+export default UserInfo
