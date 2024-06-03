@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 
 
-import useSelectorCustom from '../../../hooks/useSelectorCustom'
+import useAppSelector from '../../../hooks/useSelectorCustom'
 
 
 const AccountPageWrapper = styled.div.attrs({
@@ -16,7 +16,7 @@ className: 'AuthPageWrapper'
 
 
 const AccountPage: FC = () => {
-    const user = useSelectorCustom(({auth}) => auth.user)
+    const user = useAppSelector(({auth}) => auth.user)
     
     return (
       <AccountPageWrapper>
