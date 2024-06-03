@@ -12,10 +12,8 @@ import {
 
 import LeftbarItems  from "./LeftbarItems";
 
-const MOBILE_VIEW = window.innerWidth < 468;
-
 const Leftbar: FC<{children: React.ReactNode}> = ({ children }) => {
-  const [displaySidebar, setDisplaySidebar] = useState(!MOBILE_VIEW);
+  const [displaySidebar, setDisplaySidebar] = useState(false);
 
   const handleSidebarDisplay = (e: React.MouseEvent<Element, MouseEvent>) => {
     if (window.innerWidth > 468) {
@@ -30,7 +28,6 @@ const Leftbar: FC<{children: React.ReactNode}> = ({ children }) => {
       <SidebarContainer $displaySidebar={displaySidebar}>
         <SidebarWrapper>
           <SidebarLogoWrapper $displaySidebar={displaySidebar}>
-            {/* Logo wrapper starts */}
             <SidebarLogo href="#">
               <SidebarBrand
                 $displaySidebar={displaySidebar}
@@ -39,7 +36,6 @@ const Leftbar: FC<{children: React.ReactNode}> = ({ children }) => {
                 Menu
               </SidebarBrand>
             </SidebarLogo>
-            {/* Toggle button */}
             <SidebarToggler
               $displaySidebar={displaySidebar}
               onClick={(e) => handleSidebarDisplay(e)}
@@ -49,11 +45,9 @@ const Leftbar: FC<{children: React.ReactNode}> = ({ children }) => {
               </div>
             </SidebarToggler>
           </SidebarLogoWrapper>
-            {/* Render the SidebarItems component */}
           <LeftbarItems displaySidebar={displaySidebar} />
         </SidebarWrapper>
       </SidebarContainer>
-            {/* Render the children */}
       <Children $displaySidebar={displaySidebar}>{children}</Children>
     </>
   );

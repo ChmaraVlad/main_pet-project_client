@@ -7,11 +7,11 @@ import PrivateRoute from './PrivateRoute';
 import PrivateAdminRoute from './PrivateAdminRoute';
 
 // pages
-import AuthPage from '../pages/AuthPage';
 import AccountPage from '../pages/AccountPage';
 import HomePage from '../pages/HomePage';
 import AdminPage from '../pages/AdminPage';
 import ProductsPage from '../pages/ProductsPage';
+import SubscriptionPlans from '../pages/SubscriptionPlans';
 
 
 // Tools
@@ -23,14 +23,22 @@ export const MainRoutes: FC = () => {
       <Suspense fallback={ <div>Loading...</div> }>
         <Routes>
           <Route
-              element = { <AuthPage/> }
-              path =  { book.AUTHENTICATION_PAGE }
+              element = { <h1>Cancel</h1> }
+              path =  { book.CANCEL_PAGE }
+          /> 
+          <Route
+              element = { <h1>Success page</h1> }
+              path =  { book.SUCCESS_PAGE }
           /> 
           <Route
                 element = { <ProductsPage /> }
                 path = { book.PRODUCTS_PAGE }
             />
           <Route element={<PrivateRoute />}>
+            <Route
+                element = { <SubscriptionPlans /> }
+                path =  { book.SUBSCRIPTION_PAGE }
+            /> 
             <Route
                   element = { <AccountPage /> }
                   path = { book.ACCOUNT_PAGE }
